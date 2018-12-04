@@ -63,7 +63,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-success">登录</button>
-         <div class="text-right"><a href="#" >注册新账号</a> </div>
+         <div class="text-right"><a href="store_reg.jsp" >注册新账号</a> </div>
     </div>
   </div>
 			
