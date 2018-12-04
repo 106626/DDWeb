@@ -41,8 +41,8 @@ public class IUserDaoimpl implements IUserDao{
 				// TODO 自动生成的方法存根
 				List<User> list =new ArrayList<>();
 				while(rs.next()){
-					Integer uId=rs.getInt(u_id);
-					String uPhone=rs.getString(u_phone);
+					Integer uId=rs.getInt("u_id");
+					String uPhone=rs.getString("u_phone");
 					String uPassword=rs.getString(u_password);
 					String uName=rs.getString(u_name);
 				}

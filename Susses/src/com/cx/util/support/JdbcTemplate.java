@@ -11,7 +11,7 @@ import com.cx.util.SimpleDataSource;
 public class JdbcTemplate {
 
 	public static void execute(IPreparedStatementCallBack pscb) {
-		Connection conn = null;
+		C n conn = null;
 		PreparedStatement pst = null;
 		try {
 			conn = SimpleDataSource.getInstatnce().getConnection();

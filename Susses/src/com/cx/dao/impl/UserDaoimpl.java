@@ -2,13 +2,16 @@ package com.cx.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.cx.dao.IUserDao;
 import com.cx.entity.User;
 import com.cx.util.support.IPreparedStatementCallBack;
+import com.cx.util.support.IResultSetCallBack;
 import com.cx.util.support.JdbcTemplate;
+import com.sun.crypto.provider.RSACipher;
 
 public class UserDaoimpl implements IUserDao{
 
@@ -40,7 +43,7 @@ public class UserDaoimpl implements IUserDao{
 				
 				pst.setInt(7, user.getVip().getvId());
 				
-				pst.setInt(8, user.get);
+				pst.setInt(8, user.getImg().gethId());
 				
 				return null;
 			}
@@ -74,9 +77,40 @@ public class UserDaoimpl implements IUserDao{
 	}
 
 	@Override
+	@SuppressWarnings("all")
 	public List<User> findAll(String uName, Integer uAId) {
 		// TODO 自动生成的方法存根
-		return null;
+		return (List<User>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				String  sql="select * from tb_user where 1=1";
+				
+				if(null!=uName&&uName.trim().length()>0){
+					sql+="and uName like '%"+uName+"%'";
+				}
+				
+				if(null!=uAId){
+					sql+="and uAId=";+
+				}
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				return null;
+			}
+		}, new IResultSetCallBack() {
+			
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				while(rs.next()){
+					
+				}
+				return null;
+			}
+		});
 	}
 
 }
