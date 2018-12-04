@@ -1,5 +1,4 @@
 package com.cx.entity;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserAddress {
@@ -10,6 +9,8 @@ public class UserAddress {
 	private City city;
 	
 	private Area area;
+	
+	private List<User> list;
 	
 	public UserAddress() {
 		// TODO 自动生成的构造函数存根
@@ -22,8 +23,6 @@ public class UserAddress {
 	public void setList(List<User> list) {
 		this.list = list;
 	}
-
-	private List<User> list;
 
 	public Integer getuAId() {
 		return uAId;
