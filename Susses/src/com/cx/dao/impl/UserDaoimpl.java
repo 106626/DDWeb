@@ -51,9 +51,32 @@ public class UserDaoimpl implements IUserDao{
 	}
 
 	@Override
+	@SuppressWarnings("all")
 	public List<User> findAll() {
 		// TODO 自动生成的方法存根
-		return null;
+		return (List<User>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				String sql="";
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				return pst;
+			}
+		}, new IResultSetCallBack() {
+			
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				
+				
+				return null;
+			}
+		});
 	}
 
 	@Override
@@ -93,7 +116,7 @@ public class UserDaoimpl implements IUserDao{
 				}
 				
 				if(null!=uAId){
-					sql+="and uAId=";+
+					
 				}
 				
 				PreparedStatement pst=conn.prepareStatement(sql);

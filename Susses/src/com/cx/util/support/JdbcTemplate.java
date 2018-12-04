@@ -1,4 +1,4 @@
- package com.cx.util.support;
+package com.cx.util.support;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import com.cx.util.SimpleDataSource;
 public class JdbcTemplate {
 
 	public static void execute(IPreparedStatementCallBack pscb) {
-		C n conn = null;
+		Connection conn = null;
 		PreparedStatement pst = null;
 		try {
 			conn = SimpleDataSource.getInstatnce().getConnection();

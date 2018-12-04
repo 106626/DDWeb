@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import com.cx.dao.IUserDao;
 import com.cx.entity.User;
 import com.cx.util.support.IPreparedStatementCallBack;
@@ -43,16 +42,15 @@ public class IUserDaoimpl implements IUserDao{
 				while(rs.next()){
 					Integer uId=rs.getInt("u_id");
 					String uPhone=rs.getString("u_phone");
-					String uPassword=rs.getString(u_password);
-					String uName=rs.getString(u_name);
+					String uPassword=rs.getString("u_password");
+					String uName=rs.getString("u_name");					
+					User user=new User();
+					user.setuId(uId);
+					user.setuPhone(uPhone);
+					user.setuName(uName);
+					user.setuPassword(uPassword);
+					list.add(user);	
 				}
-				User user=new User();
-				user.setuId(uId);
-				user.setuPhone(uPhone);
-				user.setuName(uName);
-				user.setuPassword(uPassword);
-				
-				list.add(user);
 				return list;
 			}
 		});
