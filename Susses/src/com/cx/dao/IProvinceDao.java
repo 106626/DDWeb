@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cx.entity.Province;
 
-public interface IProvince {
+public interface IProvinceDao {
 	
 	List<Province> findAll();
 	
