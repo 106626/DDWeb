@@ -17,7 +17,7 @@ public class JdbcTemplate {
 			conn = SimpleDataSource.getInstatnce().getConnection();
 			conn.setAutoCommit(false);
 			pst = pscb.executePst(conn);
-			//int count = pst.executeUpdate();
+			pst.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
 			if (null != conn) {

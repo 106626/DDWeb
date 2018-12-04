@@ -15,6 +15,16 @@ public class User {
 	
 	private Vip vip;
 	
+	private HeadImg img;
+	
+	public HeadImg getImg() {
+		return img;
+	}
+
+	public void setImg(HeadImg img) {
+		this.img = img;
+	}
+
 	public User() {
 		// TODO 自动生成的构造函数存根
 	}
