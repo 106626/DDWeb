@@ -1,2 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="com.cx.entity.Vip"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.cx.entity.Admi"/>
+<fullyQualifiedTypeName name="com.cx.entity.Province"/>
+<fullyQualifiedTypeName name="com.cx.entity.User"/>
+<fullyQualifiedTypeName name="com.cx.entity.WmyAddress"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="com.cx.entity.City"/>
+<fullyQualifiedTypeName name="com.cx.entity.Area"/>
+<fullyQualifiedTypeName name="com.cx.entity.FoodType"/>
+<fullyQualifiedTypeName name="com.cx.dao.IUserDao"/>
+<fullyQualifiedTypeName name="com.sun.crypto.provider.RSACipher"/>
+<fullyQualifiedTypeName name="com.cx.util.support.JdbcTemplate"/>
+<fullyQualifiedTypeName name="com.cx.util.support.IPreparedStatementCallBack"/>
+<fullyQualifiedTypeName name="com.cx.util.support.IResultSetCallBack"/>
+<fullyQualifiedTypeName name="java.lang.SuppressWarnings"/>
+<fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+<fullyQualifiedTypeName name="com.cx.entity.Food"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="com.cx.entity.Mer"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.cx.entity.UserAddress"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.cx.entity.MerAddress"/>
+</qualifiedTypeNameHistroy>

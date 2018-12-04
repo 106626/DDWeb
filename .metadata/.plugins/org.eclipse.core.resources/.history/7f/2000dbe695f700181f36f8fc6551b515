@@ -1,0 +1,14 @@
+package com.cx.entity;
+
+public class Food {
+	private Integer fId;
+	
+	private String fName;
+	
+	private double fPrice;
+	
+	private String fImg;
+	
+	private FoodType type;
+	
+}

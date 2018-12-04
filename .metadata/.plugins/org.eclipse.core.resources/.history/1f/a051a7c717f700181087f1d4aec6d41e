@@ -1,0 +1,11 @@
+package com.cx.entity;
+
+public class HeadImg {
+	private Integer hId;
+	
+	private String hUrl;
+	
+	private String hType;
+	
+	private User user;
+}

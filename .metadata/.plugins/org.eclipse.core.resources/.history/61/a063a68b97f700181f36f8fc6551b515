@@ -1,0 +1,14 @@
+package com.cx.dao;
+
+import java.util.List;
+
+import com.cx.entity.Province;
+
+public interface IProvince {
+	
+	List<Province> findAll();
+	
+	void save(Province province);
+	
+	
+}

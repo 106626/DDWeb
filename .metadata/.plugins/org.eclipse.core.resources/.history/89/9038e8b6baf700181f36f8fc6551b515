@@ -1,0 +1,13 @@
+package com.cx.dao;
+
+import java.util.List;
+
+import com.cx.entity.Mer;
+
+public interface IUserMerDao {
+	
+	List<Mer> findAll(String mName);
+
+	String starName,Integer area_id;
+	
+}
