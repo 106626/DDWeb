@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cx.entity.Admi;
 
-public interface IAdmi {
+public interface IAdmiDao {
 	
 	List<Admi> findAll();
 	

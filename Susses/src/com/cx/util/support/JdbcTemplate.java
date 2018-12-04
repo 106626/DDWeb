@@ -11,13 +11,13 @@ import com.cx.util.SimpleDataSource;
 public class JdbcTemplate {
 
 	public static void execute(IPreparedStatementCallBack pscb) {
-		Connection conn = null;
+		C n conn = null;
 		PreparedStatement pst = null;
 		try {
 			conn = SimpleDataSource.getInstatnce().getConnection();
 			conn.setAutoCommit(false);
 			pst = pscb.executePst(conn);
-			//int count = pst.executeUpdate();
+			pst.executeUpdate();
 			conn.commit();
 		} catch (SQLException e) {
 			if (null != conn) {

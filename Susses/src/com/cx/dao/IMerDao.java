@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.cx.entity.Mer;
 
-public interface IMer {
+public interface IMerDao {
 	
 	List<Mer> findAll();
 	
