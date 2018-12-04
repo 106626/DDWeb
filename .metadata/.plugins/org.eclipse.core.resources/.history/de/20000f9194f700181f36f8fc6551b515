@@ -1,0 +1,60 @@
+package com.cx.entity;
+
+public class Wmy {
+	private Integer wId;
+	
+	private String wName;
+	
+	private String wPassword;
+	
+	private String wPhone;
+	
+	private WmyAddress wmyaddress;
+
+	public Integer getwId() {
+		return wId;
+	}
+
+	public void setwId(Integer wId) {
+		this.wId = wId;
+	}
+
+	public String getwName() {
+		return wName;
+	}
+
+	public void setwName(String wName) {
+		this.wName = wName;
+	}
+
+	public String getwPassword() {
+		return wPassword;
+	}
+
+	public void setwPassword(String wPassword) {
+		this.wPassword = wPassword;
+	}
+
+	public String getwPhone() {
+		return wPhone;
+	}
+
+	public void setwPhone(String wPhone) {
+		this.wPhone = wPhone;
+	}
+
+	public WmyAddress getWmyaddress() {
+		return wmyaddress;
+	}
+
+	public void setWmyaddress(WmyAddress wmyaddress) {
+		this.wmyaddress = wmyaddress;
+	}
+
+	@Override
+	public String toString() {
+		return "Wmy [wId=" + wId + ", wName=" + wName + ", wPassword=" + wPassword + ", wPhone=" + wPhone + "]";
+	}
+	
+	
+}

@@ -1,0 +1,18 @@
+package com.cx.dao;
+
+import com.cx.entity.User;
+
+public interface IUserDao {
+	/*
+	 * 保存一个用户的信息
+	 * 
+	 */
+	
+	void save(User user);
+	
+	/*
+	 * 删除
+	 */
+	void delById(Integer Id);
+	
+}

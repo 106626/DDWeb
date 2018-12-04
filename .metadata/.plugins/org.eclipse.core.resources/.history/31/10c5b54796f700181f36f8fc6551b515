@@ -1,0 +1,7 @@
+package com.cx.entity;
+
+public class FO {
+	private Order order;
+	
+	private Food food;
+}

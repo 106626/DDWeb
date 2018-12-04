@@ -1,0 +1,200 @@
+--地址省表
+CREATE TABLE tb_province(
+	p_id NUMBER(7),
+	p_name VARCHAR2(30),
+	p_user NUMBER(7),
+	CONSTRAINTS tb_province_id_pk PRIMARY KEY(p_id)
+);
+--城市表
+CREATE TABLE tb_city(
+	c_id NUMBER(7),
+	c_name VARCHAR2(20),
+	c_provinceID NUMBER(7),
+	CONSTRAINTS tb_city_id_pk PRIMARY KEY(c_id),
+	CONSTRAINTS tb_city_proviceID_fk FOREIGN KEY(c_provinceID) REFERENCES tb_province(p_id)
+);
+--区域表
+CREATE TABLE tb_area(
+	a_id NUMBER(7),
+	a_name VARCHAR2(20),
+	a_cityID NUMBER(7),
+	CONSTRAINTS tb_area_id_pk PRIMARY KEY(a_id),
+	CONSTRAINTS tb_area_cityID_fk FOREIGN KEY(a_cityID) REFERENCES tb_city(c_id)
+);
+--用户地址表
+CREATE TABLE tb_userAddress(
+	addressID NUMBER(7),
+	province NUMBER(7),
+	city NUMBER(7),
+	area NUMBER(7),
+	CONSTRAINTS tb_userAddress_address_pk PRIMARY KEY(addressID),
+	CONSTRAINTS tb_userAddress_provice_fk FOREIGN KEY(province) REFERENCES tb_province(p_id),
+	CONSTRAINTS tb_userAddress_city_fk FOREIGN KEY (city) REFERENCES tb_city(c_id),
+	CONSTRAINTS tb_userAddress_area_fk FOREIGN KEY(area) REFERENCES tb_area(a_id)
+);
+--vip表
+CREATE TABLE tb_vip(
+	vipID NUMBER(7),
+	vipStatue NUMBER(1),
+	CONSTRAINTS tb_vip_vipID_pk PRIMARY KEY(vipID)
+);
+--用户表
+CREATE TABLE tb_user(
+	u_id NUMBER(7),
+	u_phone VARCHAR2(20),
+	u_name VARCHAR2(20),
+	u_password VARCHAR2(20),
+	u_sex VARCHAR2(1),
+	u_addressID NUMBER(7),
+	u_vip NUMBER(7),
+	u_img NUMBER(7),
+	CONSTRAINTS tb_user_id_pk PRIMARY KEY(u_id),
+	CONSTRAINTS tb_user_addressID_fk FOREIGN KEY(u_addressID) REFERENCES tb_userAddress(addressID),
+	CONSTRAINTS tb_user_vip_fk FOREIGN KEY(u_vip) REFERENCES tb_vip(vipID),
+	CONSTRAINTS tb_user_phone_nn CHECK(u_phone IS NOT NULL),
+	CONSTRAINTS tb_user_img_un UNIQUE(u_img) 
+);
+
+
+--用户头像表
+CREATE TABLE tb_headImg(
+	h_imgID NUMBER(7),
+	h_url VARCHAR2(50),
+	h_type VARCHAR2(20),
+	CONSTRAINTS tb_headImg_imgID_fk FOREIGN KEY (h_imgID) REFERENCES tb_user(u_img)
+);
+--外卖员地址表
+CREATE TABLE tb_wmyAddress(
+	wA_id NUMBER(7),
+	wA_province NUMBER(7),
+	wA_city NUMBER(7),
+	wA_area NUMBER(7),
+	CONSTRAINTS tb_wmyAddress_id_pk PRIMARY KEY(wA_id),
+	CONSTRAINTS tb_wmyAddress_provice_fk FOREIGN KEY(wA_province) REFERENCES tb_province(p_id),
+	CONSTRAINTS tb_wmyAddress_city_fk FOREIGN KEY (wA_city) REFERENCES tb_city(c_id),
+	CONSTRAINTS tb_wmyAddress_area_fk FOREIGN KEY(wA_area) REFERENCES tb_area(a_id)
+	
+);
+--外卖员
+CREATE TABLE tb_wmy(
+	w_id NUMBER(7),
+	w_name VARCHAR2(20),
+	w_password VARCHAR2(20),
+	w_phone VARCHAR2(20),
+	w_addressID NUMBER(7),
+	CONSTRAINTS tb_wmy_id_pk PRIMARY KEY(w_id),
+	CONSTRAINTS tb_wmy_password_nn CHECK(w_password IS NOT NULL),
+	CONSTRAINTS tb_wmy_addressID_fk FOREIGN KEY(w_addressID) REFERENCES tb_wmyAddress(wA_id),
+	CONSTRAINTS tb_wmy_phone_nn CHECK(w_phone IS NOT NULL)
+);
+
+--商家类型表
+CREATE TABLE tb_merType(
+	mt_id NUMBER(7),
+	mt_name VARCHAR2(20),
+	CONSTRAINTS tb_merType_id_pk PRIMARY KEY(mt_id)
+);
+--商家地址表
+CREATE TABLE tb_merAddress(
+	mA_id NUMBER(7),
+	mA_province NUMBER(7),
+	mA_city NUMBER(7),
+	mA_area NUMBER(7),
+	CONSTRAINTS tb_merAddress_id_pk PRIMARY KEY(mA_id),
+	CONSTRAINTS tb_merAddress_provice_fk FOREIGN KEY(mA_province) REFERENCES tb_province(p_id),
+	CONSTRAINTS tb_merAddress_city_fk FOREIGN KEY (mA_city) REFERENCES tb_city(c_id),
+	CONSTRAINTS tb_merAddress_area_fk FOREIGN KEY(mA_area) REFERENCES tb_area(a_id)
+);
+--商家信息表
+CREATE TABLE tb_mer(
+	m_id NUMBER(7),
+	m_merTypeID NUMBER(7),
+	m_name VARCHAR2(50),
+	m_addressID NUMBER(7),
+	m_phone VARCHAR2(20),
+	m_imgID NUMBER(20),
+	m_startTime date,
+	m_endTime date,
+	CONSTRAINTS tb_mer_id_pk PRIMARY KEY(m_id),
+	CONSTRAINTS tb_mer_merTypeID_fk FOREIGN KEY (m_merTypeID) REFERENCES tb_merType(mt_id),
+	CONSTRAINTS tb_mer_addressID_un FOREIGN KEY (m_addressID) REFERENCES tb_merAddress(mA_id),
+	CONSTRAINTS tb_mer_phone_nn CHECK(m_phone IS NOT NULL),
+	CONSTRAINTS tb_mer_imgID_un UNIQUE(m_imgID)
+);
+
+--商家图标
+CREATE TABLE tb_merImg(
+	m_img NUMBER(7),
+	m_url VARCHAR2(30),
+	m_type VARCHAR2(20),
+	CONSTRAINTS tb_merImg_fk FOREIGN KEY(m_img) REFERENCES tb_mer(m_imgID)
+);
+--订单表
+CREATE TABLE tb_order(
+	ord_id NUMBER(7),
+	ord_mer NUMBER(7),
+	ord_user NUMBER(7),
+	ord_wmy NUMBER(7),
+	ord_food NUMBER(7),
+	ord_date date default sysdate,
+	CONSTRAINTS tb_order_id_pk PRIMARY KEY(ord_id),
+	CONSTRAINTS tb_order_user_fk FOREIGN KEY(ord_user) REFERENCES tb_user(u_id),
+	CONSTRAINTS tb_order_mer_fk FOREIGN KEY(ord_mer) REFERENCES tb_mer(m_id),
+	CONSTRAINTS tb_order_wmy_fk FOREIGN KEY(ord_wmy) REFERENCES tb_wmy(w_id)
+);
+--食物分类表
+CREATE TABLE tb_foodType(
+	fT_id NUMBER(7),
+	fT_name VARCHAR2(50),
+	CONSTRAINTS tb_foodType_id_pk PRIMARY KEY(fT_id)
+);
+--食物表
+CREATE TABLE tb_food(
+	f_id NUMBER(7),
+	f_type NUMBER(7),
+	f_name VARCHAR2(50),
+	f_price NUMBER(7,2),
+	f_statue NUMBER(1),
+	f_imgID NUMBER(7),
+	CONSTRAINTS tb_food_id_pk PRIMARY KEY (f_id),
+	CONSTRAINTS tb_food_type_fk FOREIGN KEY(f_type) REFERENCES tb_foodType(fT_id),
+	CONSTRAINTS tb_food_img_un UNIQUE(f_imgID)
+);
+--订单与食物联系表
+CREATE TABLE tb_FO(
+	fo_ord_id NUMBER(7),
+	fo_f_id NUMBER(7),
+	CONSTRAINTS tb_FO_ord_f_id_pk PRIMARY KEY(fo_ord_id,fo_f_id),
+	CONSTRAINTS tb_FO_ord_id_fk FOREIGN KEY(fo_ord_id) REFERENCES tb_order(ord_id),
+	CONSTRAINTS tb_FO_f_id_fk FOREIGN KEY(fo_f_id) REFERENCES tb_food(f_id)
+);
+
+
+--食物图片表
+CREATE TABLE tb_foodImg(
+	fI_imgID NUMBER(7),
+	fI_url VARCHAR2(50),
+	fI_type VARCHAR2(20),
+	CONSTRAINTS tb_foodImg_fk FOREIGN KEY(fI_imgID) REFERENCES tb_food(f_imgID)
+);
+
+--管理员表
+CREATE TABLE tb_admi(
+	admi_id NUMBER(7),
+	admi_name VARCHAR2(20),
+	admi_password VARCHAR2(20),
+	CONSTRAINTS tb_admi_id_pk PRIMARY KEY(admi_id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+

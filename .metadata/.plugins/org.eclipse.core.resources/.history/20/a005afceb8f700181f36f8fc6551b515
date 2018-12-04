@@ -1,0 +1,10 @@
+package com.cx.dao;
+
+import java.util.List;
+
+import com.cx.entity.Food;
+
+public interface IUserFoodDao {
+	
+	List<Food> findAll(String fName,Integer fId);
+}
