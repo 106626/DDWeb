@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cx.dao.IUserDao;
@@ -45,7 +46,7 @@ public class UserDaoimpl implements IUserDao{
 				
 				pst.setInt(8, user.getImg().gethId());
 				
-				return null;
+				return pst;
 			}
 		});
 	}
@@ -60,7 +61,7 @@ public class UserDaoimpl implements IUserDao{
 			public PreparedStatement executePst(Connection conn) throws SQLException {
 				// TODO 自动生成的方法存根
 				
-				String sql="";
+				String sql="select * from tb_user";
 				
 				PreparedStatement pst=conn.prepareStatement(sql);
 				
@@ -71,10 +72,29 @@ public class UserDaoimpl implements IUserDao{
 			@Override
 			public Object executeRscb(ResultSet rs) throws SQLException {
 				// TODO 自动生成的方法存根
+				List<User> list = new ArrayList<>();
+				
+				while(rs.next()) {
+					User s = new User();
+					
+					Integer uId = rs.getInt("uId");
+					String uName = rs.getString("uName");
+					String uPhone = rs.getString("uPhone");
+					String uPassword = rs.getString("uPassword");
+					char sex = rs.getString("sex").charAt(0);
+					
+					s.setuId(uId);
+					s.setuName(uName);
+					s.setuPhone(uPhone);
+					s.setuPassword(uPassword);
+					s.setSex(sex);
+					
+					list.add(s);
+					
+				}
 				
 				
-				
-				return null;
+				return list;
 			}
 		});
 	}
