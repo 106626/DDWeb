@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.cx.entity.MerAddress;
 
-public interface IMerAddress {
+public interface IMerAddressDao {
 	
 	List<MerAddress> findAll();
 	
-	void save(MerAddress meraddress);
+	void delById(Integer id);
 }

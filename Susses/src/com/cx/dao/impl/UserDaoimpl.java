@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cx.dao.IUserDao;
@@ -11,7 +12,6 @@ import com.cx.entity.User;
 import com.cx.util.support.IPreparedStatementCallBack;
 import com.cx.util.support.IResultSetCallBack;
 import com.cx.util.support.JdbcTemplate;
-import com.sun.crypto.provider.RSACipher;
 
 public class UserDaoimpl implements IUserDao{
 
@@ -24,28 +24,20 @@ public class UserDaoimpl implements IUserDao{
 			public PreparedStatement executePst(Connection conn) throws SQLException {
 				// TODO 自动生成的方法存根
 				
-				String sql="insert into tb_user values(?,?,?,?,?,?,?,?)";
+				String sql="insert into tb_user values(tb_user_u_id.nextval,?,?,?,null,null,null,null)";
 				
 				PreparedStatement pst=conn.prepareStatement(sql);
 				
 				//发送参数-注意类型
-				pst.setInt(1, user.getuId());
+				//pst.setInt(1, user.getuId());
 				
-				pst.setString(2, user.getuPhone());
+				pst.setString(1, user.getuPhone());
 				
-				pst.setString(3, user.getuName());
+				pst.setString(2, user.getuName());
 				
-				pst.setString(4, user.getuPassword());
-				
-				pst.setString(5, String.valueOf(user.getSex()));
-				
-				pst.setInt(6, user.getUseraddress().getuAId());
-				
-				pst.setInt(7, user.getVip().getvId());
-				
-				pst.setInt(8, user.getImg().gethId());
-				
-				return null;
+				pst.setString(3, user.getuPassword());
+								
+				return pst;
 			}
 		});
 	}
@@ -60,7 +52,7 @@ public class UserDaoimpl implements IUserDao{
 			public PreparedStatement executePst(Connection conn) throws SQLException {
 				// TODO 自动生成的方法存根
 				
-				String sql="";
+				String sql="select * from tb_user";
 				
 				PreparedStatement pst=conn.prepareStatement(sql);
 				
@@ -71,34 +63,34 @@ public class UserDaoimpl implements IUserDao{
 			@Override
 			public Object executeRscb(ResultSet rs) throws SQLException {
 				// TODO 自动生成的方法存根
+				List<User> list=new ArrayList<>();
 				
+				while(rs.next()){
+					Integer uId=rs.getInt("u_id");
+					
+					String uName=rs.getString("u_name");
+					
+					String uPhone=rs.getString("u_phone");
+					
+					char sex=rs.getString("u_sex").charAt(0);
+					
+					User user=new User();
+					
+					user.setuId(uId);
+					
+					user.setuName(uName);
+					
+					user.setuPhone(uPhone);
+					
+					user.setSex(sex);
+					
+					list.add(user);
+				}
 				
-				
-				return null;
+				return list;
 			}
 		});
 	}
-
-	@Override
-	public void delById(Integer Id) {
-		// TODO 自动生成的方法存根
-		JdbcTemplate.execute(new IPreparedStatementCallBack() {
-			
-			@Override
-			public PreparedStatement executePst(Connection conn) throws SQLException {
-				// TODO 自动生成的方法存根
-				
-				String sql="delete from tb_user where id=?";
-				
-				PreparedStatement pst=conn.prepareStatement(sql);
-				
-				pst.setInt(1, Id);
-				
-				return pst;
-			}
-		});
-	}
-
 	@Override
 	@SuppressWarnings("all")
 	public List<User> findAll(String uName, Integer uAId) {
@@ -116,22 +108,44 @@ public class UserDaoimpl implements IUserDao{
 				}
 				
 				if(null!=uAId){
-					
+					sql+="and uAId ="+uAId;
 				}
 				
 				PreparedStatement pst=conn.prepareStatement(sql);
 				
-				return null;
+				return pst;
 			}
 		}, new IResultSetCallBack() {
 			
 			@Override
 			public Object executeRscb(ResultSet rs) throws SQLException {
 				// TODO 自动生成的方法存根
-				while(rs.next()){
+					List<User> list = new ArrayList<>();			
+					while(rs.next()){
+						Integer uId=rs.getInt("u_id");
+						
+						String uName=rs.getString("u_name");
+						
+						String uPhone=rs.getString("u_phone");
+						
+						char sex=rs.getString("u_sex").charAt(0);
+						
+						User user=new User();
+						
+						user.setuId(uId);
+						
+						user.setuName(uName);
+						
+						user.setuPhone(uPhone);
+						
+						user.setSex(sex);
+						
+						list.add(user);
+						
+						list.add(user);
+					}			
 					
-				}
-				return null;
+				return list;
 			}
 		});
 	}

@@ -1,10 +1,10 @@
-package com.cx.dao;
+package com.cx.service;
 
 import java.util.List;
 
 import com.cx.entity.User;
 
-public interface IUserDao {
+public interface IUserService {
 	/*
 	 * 保存一个用户的信息
 	 * 

@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.cx.entity.UserAddress;
 
-public interface IUserAddress {
+public interface IUserAddressDao {
 	
 	List<UserAddress> findAll();
 	
-	void save(UserAddress useraddress);
+	void delById(Integer id);
 }
