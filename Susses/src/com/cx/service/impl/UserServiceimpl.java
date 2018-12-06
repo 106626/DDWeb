@@ -23,9 +23,9 @@ public class UserServiceimpl implements IUserService{
 	}
 
 	@Override
-	public List<User> findAll(String uName, Integer uAId) {
+	public List<User> findAll(String uName, String uPassword) {
 		// TODO 自动生成的方法存根
-		return dao.findAll(uName, uAId);
+		return dao.findAll(uName, uPassword);
 	}
 
 }

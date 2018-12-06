@@ -20,5 +20,5 @@ public interface IUserDao {
 	/*
 	 * uAId-地址（外键）
 	 */
-	List<User> findAll(String uName,Integer uAId);
+	List<User> findAll(String uName,String uPassword);
 }

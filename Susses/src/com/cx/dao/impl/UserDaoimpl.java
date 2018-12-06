@@ -93,7 +93,7 @@ public class UserDaoimpl implements IUserDao{
 	}
 	@Override
 	@SuppressWarnings("all")
-	public List<User> findAll(String uName, Integer uAId) {
+	public List<User> findAll(String uName, String uPassword) {
 		// TODO 自动生成的方法存根
 		return (List<User>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
 			
@@ -107,8 +107,8 @@ public class UserDaoimpl implements IUserDao{
 					sql+="and uName like '%"+uName+"%'";
 				}
 				
-				if(null!=uAId){
-					sql+="and uAId ="+uAId;
+				if(null!=uPassword){
+					sql+="and uAId ="+uPassword;
 				}
 				
 				PreparedStatement pst=conn.prepareStatement(sql);

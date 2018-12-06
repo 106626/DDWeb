@@ -28,11 +28,11 @@ public class FoodDaoimpl implements IFoodDao{
 				PreparedStatement pst=conn.prepareStatement(sql);
 				
 				if(null!=fName&&fName.trim().length()>0){
-					sql+="and uName like '%"+fName+"%'";
+					sql+="and f_name like '%"+fName+"%'";
 				}
 				
 				if(null!=fT_id){
-					sql+="and uAId ="+fT_id;
+					sql+="and f_type ="+fT_id;
 				}
 				return pst;
 			}
@@ -78,7 +78,7 @@ public class FoodDaoimpl implements IFoodDao{
 		public PreparedStatement executePst(Connection conn) throws SQLException {
 			// TODO 自动生成的方法存根
 			
-			String sql="delete from tb_food where m_id=?";
+			String sql="delete from tb_food where f_id=?";
 			
 			PreparedStatement pst=conn.prepareStatement(sql);
 			
