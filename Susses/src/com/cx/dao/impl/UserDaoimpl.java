@@ -63,6 +63,7 @@ public class UserDaoimpl implements IUserDao{
 			@Override
 			public Object executeRscb(ResultSet rs) throws SQLException {
 				// TODO 自动生成的方法存根
+
 				List<User> list=new ArrayList<>();
 				
 				while(rs.next()){
@@ -92,6 +93,7 @@ public class UserDaoimpl implements IUserDao{
 				}
 				
 				return list;
+
 			}
 		});
 	}
