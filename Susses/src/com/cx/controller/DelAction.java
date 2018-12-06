@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cx.service.IFoodService;
+import com.cx.service.IOrderService;
 import com.cx.service.impl.FoodServiceimpl;
+import com.cx.service.impl.OrderServiceimpl;
 
 @WebServlet(urlPatterns="/del")
 public class DelAction extends HttpServlet{
@@ -20,15 +22,16 @@ public class DelAction extends HttpServlet{
 	private static final long serialVersionUID = 3643967224242906785L;
 
 
-	private  IFoodService foodService = new FoodServiceimpl();
+	private  IOrderService ord=new OrderServiceimpl();
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO 自动生成的方法存根
-		String id = req.getParameter("f_id");
-		Integer f_id = Integer.valueOf(id);
+		String id = req.getParameter("id");
+	
+		Integer s=Integer.valueOf(id);
+			
+		ord.delById(s);
 		
-		foodService.delById(f_id);
-		
-		req.getRequestDispatcher("/index").forward(req, resp);
+		req.getRequestDispatcher("/views/user_order").forward(req, resp);
 	}
 }

@@ -10,4 +10,5 @@ public interface IMerDao {
 	
 	void save(Mer mer);
 	
+	List<Mer> findAll();
 }

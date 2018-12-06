@@ -288,19 +288,19 @@
     <!-- Body main wrapper end -->
 
 		<!-- All js plugins included in this file. -->
-    	<script src="../js/user_index/vendor/jquery-1.12.0.min.js"></script>
-	    <script src="../js/user_index/bootstrap.min.js"></script>
-	    <script src="../js/user_index/jquery.nivo.slider.pack.js"></script>
-	    <script src="../js/user_index/isotope.pkgd.min.js"></script>
-	    <script src="../js/user_index/ajax-mail.js"></script>
-	    <script src="../js/user_index/jquery.magnific-popup.js"></script>
-	    <script src="../js/user_index/jquery.counterup.min.js"></script>
-	    <script src="../js/user_index/animated-headlines.js"></script>
-	    <script src="../js/user_index/waypoints.min.js"></script>
-	    <script src="../js/user_index/jquery.collapse.js"></script>
-	    <script src="../js/user_index/style-customizer.js"></script>
-	    <script src="../js/user_index/plugins.js"></script>
-	    <script src="../js/user_index/main.js"></script>
+    	<script src="/Susses/js/user_index/vendor/jquery-1.12.0.min.js"></script>
+	    <script src="/Susses/js/user_index/bootstrap.min.js"></script>
+	    <script src="/Susses/js/user_index/jquery.nivo.slider.pack.js"></script>
+	    <script src="/Susses/js/user_index/isotope.pkgd.min.js"></script>
+	    <script src="/Susses/js/user_index/ajax-mail.js"></script>
+	    <script src="/Susses/js/user_index/jquery.magnific-popup.js"></script>
+	    <script src="/Susses/js/user_index/jquery.counterup.min.js"></script>
+	    <script src="/Susses/js/user_index/animated-headlines.js"></script>
+	    <script src="/Susses/js/user_index/waypoints.min.js"></script>
+	    <script src="/Susses/js/user_index/jquery.collapse.js"></script>
+	    <script src="/Susses/js/user_index/style-customizer.js"></script>
+	    <script src="/Susses/js/user_index/plugins.js"></script>
+	    <script src="/Susses/js/user_index/main.js"></script>
 
 </body>
 

@@ -103,5 +103,67 @@ public class MerDaoimpl implements IMerDao{
 			}
 		});
 	}
+
+	@Override
+	@SuppressWarnings("all")
+	public List<Mer> findAll() {
+		// TODO 自动生成的方法存根
+		return (List<Mer>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				String sql="select * from  tb_mer";
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				return pst;
+			}
+		}, new IResultSetCallBack() {
+			
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				List<Mer> list=new ArrayList<>();
+				
+				while(rs.next()){
+					
+					Integer Id=rs.getInt("m_id");
+					
+					String name=rs.getString("m_name");
+					
+					String password=rs.getString("m_password");
+					
+					String phone=rs.getString("m_phone");
+					
+					String img=rs.getString("m_imgID");
+					
+					Date start=rs.getDate("m_startTime");
+					
+					Date end=rs.getDate("m_endTime");
+					
+					Mer mer=new Mer();
+					
+					mer.setmId(Id);
+					
+					mer.setmName(name);
+					
+					mer.setmPassword(password);
+					
+					mer.setmPhone(phone);
+					
+					mer.setmImg(img);
+					
+					mer.setmStartTime(start);
+					
+					mer.setmEndTime(end);
+					
+					list.add(mer);
+				}
+				
+				return list;
+			}
+		});
+	}
 }
 

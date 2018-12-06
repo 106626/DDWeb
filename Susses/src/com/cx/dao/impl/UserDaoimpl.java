@@ -72,7 +72,9 @@ public class UserDaoimpl implements IUserDao{
 					
 					String uPhone=rs.getString("u_phone");
 					
-					char sex=rs.getString("u_sex").charAt(0);
+					String uPassword=rs.getString("u_password");
+					
+//					char sex=rs.getString("u_sex").charAt(0);
 					
 					User user=new User();
 					
@@ -82,7 +84,9 @@ public class UserDaoimpl implements IUserDao{
 					
 					user.setuPhone(uPhone);
 					
-					user.setSex(sex);
+					user.setuPassword(uPassword);
+					
+//					user.setSex(sex);
 					
 					list.add(user);
 				}
@@ -104,7 +108,7 @@ public class UserDaoimpl implements IUserDao{
 				String  sql="select * from tb_user where 1=1";
 				
 				if(null!=uName&&uName.trim().length()>0){
-					sql+="and uName like '%"+uName+"%'";
+					sql+="and uName ="+uName;
 				}
 				
 				if(null!=uPassword){
