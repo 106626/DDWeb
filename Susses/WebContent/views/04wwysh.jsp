@@ -55,24 +55,28 @@
 
 
 	<!--Contact bottom section-->
+	<div class="container-fluid">
+		<form action="/Susses/views/04wwysh" class="bs-example bs-example-form" role="form">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="input-group">
+						<input name="uName" type="text" placeholder="根据姓名模糊查询" class="form-control"> <span
+							class="input-group-btn">
+							<button class="btn btn-success" type="submit">搜索</button>
+						</span>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<!-- /.row -->
+		</form>
+	</div>
 	<div class="contact-bottom-section ptb-100">
 		<div class="bg-img"></div>
 		<div class="container-fluid">
 			<div class="row">
-			<div class="search-inside" style="display: none;">
-								<a href="#" class="search-close"><i class="mdi mdi-close"></i></a>
-								<div class="search-overlay"></div>
-								<div class="searchbar-inner">
-									<div class="search">
-										<form action="/Susses/views/user_order">
-											<input type="search" placeholder="搜索订单" name="mName">
-											<button type="submit">
-												<i class="mdi mdi-magnify"></i>
-											</button>
-										</form>
-									</div>
-								</div>
-							</div>
+			
 				<div class="col-md-6 col-sm-12 col-xs-12 contact-form-div">
 					<div class="contact-form">
 						<div class="contact-form-title">

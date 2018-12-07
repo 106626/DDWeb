@@ -78,7 +78,6 @@ body {
 						</c:if>
 					</div>
 				</fieldset>
-
 			</form>
 		</div>
 	</div>
