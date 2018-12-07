@@ -1,6 +1,6 @@
 --表的删除（顺序不能动）
-DROP TABLE tb_merImg;
-DROP TABLE tb_headImg;
+--DROP TABLE tb_merImg;
+--DROP TABLE tb_headImg;
 DROP TABLE tb_foodImg;
 DROP TABLE tb_admi;
 DROP TABLE tb_FO;
@@ -19,6 +19,48 @@ DROP TABLE tb_area;
 DROP TABLE tb_city;
 DROP TABLE tb_province;
 --地址省表
+ DROP SEQUENCE tb_province_p_id;
+CREATE SEQUENCE tb_province_p_id START WITH  1000;
+
+DROP SEQUENCE tb_city_c_id;
+CREATE SEQUENCE tb_city_c_id START WITH  1000;
+
+DROP SEQUENCE tb_area_a_id;
+CREATE SEQUENCE tb_area_a_id START WITH 1000;
+
+DROP SEQUENCE tb_userAddress_addressId;
+CREATE SEQUENCE tb_userAddress_addressId START WITH 1000;
+
+DROP SEQUENCE tb_vip_vipID;
+CREATE SEQUENCE tb_vip_vipID START WITH 1000;
+
+DROP SEQUENCE tb_user_u_id;
+CREATE SEQUENCE tb_user_u_id START WITH 1000;
+
+DROP SEQUENCE tb_wmy_wA_id;
+CREATE SEQUENCE tb_wmy_wA_id START WITH 1000;
+
+DROP SEQUENCE tb_wmy_w_id;
+CREATE SEQUENCE tb_wmy_w_id START WITH 1000;
+
+DROP SEQUENCE tb_merType_mt_id;
+CREATE SEQUENCE tb_merType_mt_id START WITH 1000;
+
+DROP SEQUENCE tb_merAddress_mA_id;
+CREATE SEQUENCE tb_merAddress_mA_id START WITH 1000;
+
+DROP SEQUENCE tb_mer_m_id;
+CREATE SEQUENCE tb_mer_m_id START WITH 1000;
+
+DROP SEQUENCE tb_order_ord_id;
+CREATE SEQUENCE tb_order_ord_id START WITH 1000;
+
+DROP SEQUENCE tb_foodType_fT_id;
+CREATE SEQUENCE tb_foodType_fT_id START WITH 1000;
+
+DROP SEQUENCE tb_food_f_id;
+CREATE SEQUENCE tb_food_f_id START WITH 1000;
+
 CREATE TABLE tb_province(
 	p_id NUMBER(7),
 	p_name VARCHAR2(30),
@@ -30,16 +72,16 @@ CREATE TABLE tb_city(
 	c_id NUMBER(7),
 	c_name VARCHAR2(20),
 	c_provinceID NUMBER(7),
-	CONSTRAINTS tb_city_id_pk PRIMARY KEY(c_id),
-	CONSTRAINTS tb_city_proviceID_fk FOREIGN KEY(c_provinceID) REFERENCES tb_province(p_id)
+	CONSTRAINTS tb_city_id_pk PRIMARY KEY(c_id)
+	--CONSTRAINTS tb_city_proviceID_fk FOREIGN KEY(c_provinceID) REFERENCES tb_province(p_id)
 );
 --区域表
 CREATE TABLE tb_area(
 	a_id NUMBER(7),
 	a_name VARCHAR2(20),
 	a_cityID NUMBER(7),
-	CONSTRAINTS tb_area_id_pk PRIMARY KEY(a_id),
-	CONSTRAINTS tb_area_cityID_fk FOREIGN KEY(a_cityID) REFERENCES tb_city(c_id)
+	CONSTRAINTS tb_area_id_pk PRIMARY KEY(a_id)
+	--CONSTRAINTS tb_area_cityID_fk FOREIGN KEY(a_cityID) REFERENCES tb_city(c_id)
 );
 
 --用户地址表
@@ -50,7 +92,7 @@ CREATE TABLE tb_userAddress(
 	area NUMBER(7),
 	CONSTRAINTS tb_userAddress_address_pk PRIMARY KEY(addressID),
 	CONSTRAINTS tb_userAddress_provice_fk FOREIGN KEY(province) REFERENCES tb_province(p_id),
-	CONSTRAINTS tb_userAddress_city_fk FOREIGN KEY (city) REFERENCES tb_city(c_id),
+	CONSTRAINTS tb_userAddress_city_fk FOREIGN KEY(city) REFERENCES tb_city(c_id),
 	CONSTRAINTS tb_userAddress_area_fk FOREIGN KEY(area) REFERENCES tb_area(a_id)
 );
 --vip表
@@ -76,12 +118,14 @@ CREATE TABLE tb_user(
 	CONSTRAINTS tb_user_img_un UNIQUE(u_img) 
 );
 --用户头像表
-CREATE TABLE tb_headImg(
+/* CREATE TABLE tb_headImg(
+	h_id NUMBER(7),
 	h_imgID NUMBER(7),
 	h_url VARCHAR2(50),
 	h_type VARCHAR2(20),
+	CONSTRAINTS tb_h_id_pk PRIMARY KEY(h_id),
 	CONSTRAINTS tb_headImg_imgID_fk FOREIGN KEY (h_imgID) REFERENCES tb_user(u_img)
-);
+); */
 --外卖员地址表
 CREATE TABLE tb_wmyAddress(
 	wA_id NUMBER(7),
@@ -127,6 +171,7 @@ CREATE TABLE tb_mer(
 	m_id NUMBER(7),
 	m_merTypeID NUMBER(7),
 	m_name VARCHAR2(50),
+	m_password VARCHAR2(20),
 	m_addressID NUMBER(7),
 	m_phone VARCHAR2(20),
 	m_imgID NUMBER(20),
@@ -138,20 +183,12 @@ CREATE TABLE tb_mer(
 	CONSTRAINTS tb_mer_phone_nn CHECK(m_phone IS NOT NULL),
 	CONSTRAINTS tb_mer_imgID_un UNIQUE(m_imgID)
 );
---商家图标
-CREATE TABLE tb_merImg(
-	m_img NUMBER(7),
-	m_url VARCHAR2(30),
-	m_type VARCHAR2(20),
-	CONSTRAINTS tb_merImg_fk FOREIGN KEY(m_img) REFERENCES tb_mer(m_imgID)
-);
 --订单表
 CREATE TABLE tb_order(
 	ord_id NUMBER(7),
 	ord_mer NUMBER(7),
 	ord_user NUMBER(7),
 	ord_wmy NUMBER(7),
-	ord_food NUMBER(7),
 	ord_date date default sysdate,
 	CONSTRAINTS tb_order_id_pk PRIMARY KEY(ord_id),
 	CONSTRAINTS tb_order_user_fk FOREIGN KEY(ord_user) REFERENCES tb_user(u_id),
@@ -159,11 +196,11 @@ CREATE TABLE tb_order(
 	CONSTRAINTS tb_order_wmy_fk FOREIGN KEY(ord_wmy) REFERENCES tb_wmy(w_id)
 );
 --食物分类表
-CREATE TABLE tb_foodType(
+ CREATE TABLE tb_foodType(
 	fT_id NUMBER(7),
 	fT_name VARCHAR2(50),
 	CONSTRAINTS tb_foodType_id_pk PRIMARY KEY(fT_id)
-);
+); 
 
 
 --食物表
@@ -175,7 +212,6 @@ CREATE TABLE tb_food(
 	f_statue NUMBER(1),
 	f_imgID NUMBER(7),
 	CONSTRAINTS tb_food_id_pk PRIMARY KEY (f_id),
-	CONSTRAINTS tb_food_type_fk FOREIGN KEY(f_type) REFERENCES tb_foodType(fT_id),
 	CONSTRAINTS tb_food_img_un UNIQUE(f_imgID)
 );
 
@@ -187,22 +223,21 @@ CREATE TABLE tb_FO(
 	CONSTRAINTS tb_FO_ord_f_id_pk PRIMARY KEY(fo_ord_id,fo_f_id),
 	CONSTRAINTS tb_FO_ord_id_fk FOREIGN KEY(fo_ord_id) REFERENCES tb_order(ord_id),
 	CONSTRAINTS tb_FO_f_id_fk FOREIGN KEY(fo_f_id) REFERENCES tb_food(f_id)
-	
 );
 
 --食物图片表
-CREATE TABLE tb_foodImg(
+ CREATE TABLE tb_foodImg(
 	fI_imgID NUMBER(7),
 	fI_url VARCHAR2(50),
 	fI_type VARCHAR2(20),
 	CONSTRAINTS tb_foodImg_fk FOREIGN KEY(fI_imgID) REFERENCES tb_food(f_imgID)
-);
+); 
 
 
 --管理员表
 CREATE TABLE tb_admi(
 	admi_id NUMBER(7),
-	admi_name VARCHAR2(20),
+	admi_name VARCHAR2(30),
 	admi_password VARCHAR2(20),
 	CONSTRAINTS tb_admi_id_pk PRIMARY KEY(admi_id)
 );
@@ -248,33 +283,32 @@ INSERT INTO tb_city VALUES(26,'济源',10);
 
 
 --区域表
-INSERT INTO VALUES();
-INSERT INTO tb_area VALUES(1,'天宁区',2,);
-INSERT INTO tb_area VALUES(2,'宝应区',1,);
-INSERT INTO tb_area VALUES(3,'姑苏区',3,);
-INSERT INTO tb_area VALUES(4,'滨城区',4,);
-INSERT INTO tb_area VALUES(5,'德城区',5,);
-INSERT INTO tb_area VALUES(6,'东营区',6,);
-INSERT INTO tb_area VALUES(7,'长治县',7,);
-INSERT INTO tb_area VALUES(8,'大同县',8,);
-INSERT INTO tb_area VALUES(9,'高平市',9,);
-INSERT INTO tb_area VALUES(10,'奉贤区',10,);
-INSERT INTO tb_area VALUES(11,'巴南区',11,);
-INSERT INTO tb_area VALUES(12,'大观区',12,);
-INSERT INTO tb_area VALUES(13,'利辛县',13,);
-INSERT INTO tb_area VALUES(14,'东至县',14,);
-INSERT INTO tb_area VALUES(15,'白河县',15,);
-INSERT INTO tb_area VALUES(16,'陈仓区',16,);
-INSERT INTO tb_area VALUES(17,'城固县',17,);
-INSERT INTO tb_area VALUES(18,'仓山区',18,);
-INSERT INTO tb_area VALUES(19,'长汀区',19,);
-INSERT INTO tb_area VALUES(20,'光泽县',20,);
-INSERT INTO tb_area VALUES(21,'潮安区',21,);
-INSERT INTO tb_area VALUES(22,'茶山镇',22,);
-INSERT INTO tb_area VALUES(23,'禅城区',23,);
-INSERT INTO tb_area VALUES(24,'安阳县',24,);
-INSERT INTO tb_area VALUES(25,'鹤山区',25,);
-INSERT INTO tb_area VALUES(26,'柽柳区',26,);
+INSERT INTO tb_area VALUES(1,'天宁区',2);
+INSERT INTO tb_area VALUES(2,'宝应区',1);
+INSERT INTO tb_area VALUES(3,'姑苏区',3);
+INSERT INTO tb_area VALUES(4,'滨城区',4);
+INSERT INTO tb_area VALUES(5,'德城区',5);
+INSERT INTO tb_area VALUES(6,'东营区',6);
+INSERT INTO tb_area VALUES(7,'长治县',7);
+INSERT INTO tb_area VALUES(8,'大同县',8);
+INSERT INTO tb_area VALUES(9,'高平市',9);
+INSERT INTO tb_area VALUES(10,'奉贤区',10);
+INSERT INTO tb_area VALUES(11,'巴南区',11);
+INSERT INTO tb_area VALUES(12,'大观区',12);
+INSERT INTO tb_area VALUES(13,'利辛县',13);
+INSERT INTO tb_area VALUES(14,'东至县',14);
+INSERT INTO tb_area VALUES(15,'白河县',15);
+INSERT INTO tb_area VALUES(16,'陈仓区',16);
+INSERT INTO tb_area VALUES(17,'城固县',17);
+INSERT INTO tb_area VALUES(18,'仓山区',18);
+INSERT INTO tb_area VALUES(19,'长汀区',19);
+INSERT INTO tb_area VALUES(20,'光泽县',20);
+INSERT INTO tb_area VALUES(21,'潮安区',21);
+INSERT INTO tb_area VALUES(22,'茶山镇',22);
+INSERT INTO tb_area VALUES(23,'禅城区',23);
+INSERT INTO tb_area VALUES(24,'安阳县',24);
+INSERT INTO tb_area VALUES(25,'鹤山区',25);
+INSERT INTO tb_area VALUES(26,'柽柳区',26);
 
 --用户地址表
 INSERT INTO tb_userAddress VALUES(1,1,1,2);
@@ -303,16 +337,16 @@ INSERT INTO tb_user VALUES(222,18862639155,'小宋',123,'M',1,001,8);
 INSERT INTO tb_user VALUES(300,18862639155,'小朱',123,'F',3,004,9);
 INSERT INTO tb_user VALUES(310,18862639155,'小良',123,'M',5,006,10);
 --用户头像表
-INSERT INTO tb_headImg VALUES(1,'‪D:\table\1.jpeg');
-INSERT INTO tb_headImg VALUES(2,'‪D:\table\2.jpeg');
-INSERT INTO tb_headImg VALUES(3,'‪D:\table\3.jpeg');
-INSERT INTO tb_headImg VALUES(4,'‪D:\table\4.jpeg');
-INSERT INTO tb_headImg VALUES(5,'‪D:\table\5.jpeg');
-INSERT INTO tb_headImg VALUES(6,'‪D:\table\6.jpeg');
-INSERT INTO tb_headImg VALUES(7,'‪D:\table\7.jpeg');
-INSERT INTO tb_headImg VALUES(8,'‪D:\table\8.jpeg');
-INSERT INTO tb_headImg VALUES(9,'‪D:\table\9.jpeg');
-INSERT INTO tb_headImg VALUES(10,'‪D:\table\10.jpeg');
+/* INSERT INTO tb_headImg VALUES(1,'‪1.jpeg');
+INSERT INTO tb_headImg VALUES(2,'2.jpeg');
+INSERT INTO tb_headImg VALUES(3,'3.jpeg');
+INSERT INTO tb_headImg VALUES(4,'‪4.jpeg');
+INSERT INTO tb_headImg VALUES(5,'‪5.jpeg');
+INSERT INTO tb_headImg VALUES(6,'‪6.jpeg');
+INSERT INTO tb_headImg VALUES(7,'‪7.jpeg');
+INSERT INTO tb_headImg VALUES(8,'‪8.jpeg');
+INSERT INTO tb_headImg VALUES(9,'9.jpeg');
+INSERT INTO tb_headImg VALUES(10,'10.jpeg'); */
 --外卖员地址表
 INSERT INTO tb_wmyAddress VALUES(1,1,1,1);
 INSERT INTO tb_wmyAddress VALUES(2,1,2,1);
@@ -346,61 +380,54 @@ INSERT INTO tb_merAddress VALUES(4,2,6,1);
 INSERT INTO tb_merAddress VALUES(5,3,7,1);
 
 --商家信息表
-INSERT INTO tb_mer VALUES(1,1,'好德火锅',1,'13812874623',1,'2011-07-29 12:26:32','2018-07-29 12:26:32');
-INSERT INTO tb_mer VALUES(2,2,'香格里拉',2,'13812874623',2,'2011-07-29 12:26:32','2018-07-29 12:26:32');
-INSERT INTO tb_mer VALUES(3,3,'满记甜品',3,'13812874623',3,'2011-07-29 12:26:32','2018-07-29 12:26:32');
-INSERT INTO tb_mer VALUES(4,4,'东北饺子',4,'13812874623',4,'2011-07-29 12:26:32','2018-07-29 12:26:32');
-INSERT INTO tb_mer VALUES(5,5,'四川麻辣烫',5,'13812874623',5,'2011-07-29 12:26:32','2018-07-29 12:26:32');
-
---商家图标
-INSERT INTO tb_merImg VALUES(1,'‪D:\table\01.jpg','jpg');
-INSERT INTO tb_merImg VALUES(2,'‪D:\table\02.jpg','jpg');
-INSERT INTO tb_merImg VALUES(3,'‪D:\table\03.jpg','jpg');
-INSERT INTO tb_merImg VALUES(4,'‪D:\table\04.jpg','jpg');
-INSERT INTO tb_merImg VALUES(5,'‪D:\table\05.jpg','jpg');
+INSERT INTO tb_mer VALUES(1,1,'好德火锅','1234',1,'13812874623',1,sysdate,to_date('2018-12-02 12:23:31','yyyy-mm-dd,hh:mi:ss'));
+INSERT INTO tb_mer VALUES(2,2,'香格里拉','1234',2,'13812874623',2,sysdate,to_date('2018-12-02 12:23:31','yyyy-mm-dd,hh:mi:ss'));
+INSERT INTO tb_mer VALUES(3,3,'满记甜品','1234',3,'13812874623',3,sysdate,to_date('2018-12-02 12:23:31','yyyy-mm-dd,hh:mi:ss'));
+INSERT INTO tb_mer VALUES(4,4,'东北饺子','1234',4,'13812874623',4,sysdate,to_date('2018-12-02 11:23:31','yyyy-mm-dd,hh:mi:ss'));
+INSERT INTO tb_mer VALUES(5,5,'四川麻辣烫','1234',5,'13812874623',5,sysdate,to_date('2018-12-02 11:23:31','yyyy-mm-dd,hh:mi:ss'));
 
 --订单表
-INSERT INTO tb_order VALUES(1,1,1,1,1);
-INSERT INTO tb_order VALUES(2,2,2,2,2);
-INSERT INTO tb_order VALUES(3,3,3,3,1);
-INSERT INTO tb_order VALUES(4,4,4,4,4);
-INSERT INTO tb_order VALUES(5,5,5,5,1);
-INSERT INTO tb_order VALUES(6,1,6,6,2);
-INSERT INTO tb_order VALUES(7,2,7,3,1);
-INSERT INTO tb_order VALUES(8,3,8,2,3);
-INSERT INTO tb_order VALUES(9,4,9,1,5);
-INSERT INTO tb_order VALUES(10,5,10,1,1);
+INSERT INTO tb_order VALUES(1,1,100,1,sysdate);
+INSERT INTO tb_order VALUES(2,2,110,2,sysdate);
+INSERT INTO tb_order VALUES(3,3,111,3,sysdate);
+INSERT INTO tb_order VALUES(4,4,200,4,sysdate);
+INSERT INTO tb_order VALUES(5,5,210,5,sysdate);
+INSERT INTO tb_order VALUES(6,1,211,6,sysdate);
+INSERT INTO tb_order VALUES(7,2,221,3,sysdate);
+INSERT INTO tb_order VALUES(8,3,300,2,sysdate);
+INSERT INTO tb_order VALUES(9,4,222,1,sysdate);
+INSERT INTO tb_order VALUES(10,3,310,5,sysdate);
 
 --食物分类表
-INSERT INTO VALUES(1,'蛋糕');
-INSERT INTO VALUES(2,'奶茶');
-INSERT INTO VALUES(3,'冰激凌');
-INSERT INTO VALUES(4,'水果');
-INSERT INTO VALUES(5,'肉串');
-INSERT INTO VALUES(6,'布丁');
+INSERT INTO tb_foodtype VALUES(1,'蛋糕');
+INSERT INTO tb_foodtype VALUES(2,'奶茶');
+INSERT INTO tb_foodtype VALUES(3,'冰激凌');
+INSERT INTO tb_foodtype VALUES(4,'水果');
+INSERT INTO tb_foodtype VALUES(5,'肉串');
+INSERT INTO tb_foodtype VALUES(6,'布丁'); 
 --食物表
-INSERT INTO VALUES(1,6,'蜂蜜布丁',13.50,1,1);
-INSERT INTO VALUES(2,1,'香草蛋糕蛋糕',25.00,2,2);
-INSERT INTO VALUES(3,2,'奶茶兄弟',12.50,1,3);
-INSERT INTO VALUES(4,4,'柠檬',5.50,1,4);
-INSERT INTO VALUES(5,5,'羊肉串',3.50,1,5);
-INSERT INTO VALUES(6,3,'香草冰激凌',8.50,2,6);
+INSERT INTO tb_food VALUES(1,6,'蛋糕',13.50,1,1);
+INSERT INTO tb_food VALUES(2,1,'奶茶',25.00,2,2);
+INSERT INTO tb_food VALUES(3,2,'冰激凌',12.50,1,3);
+INSERT INTO tb_food VALUES(4,4,'水果',5.50,1,4);
+INSERT INTO tb_food VALUES(5,5,'肉串',3.50,1,5);
+INSERT INTO tb_food VALUES(6,3,'布丁',8.50,2,6);
 --订单与食物联系表
-INSERT INTO VALUES(1,2);
-INSERT INTO VALUES(2,2);
-INSERT INTO VALUES(3,4);
-INSERT INTO VALUES(4,6);
-INSERT INTO VALUES(5,3);
-INSERT INTO VALUES(6,4);
-INSERT INTO VALUES(7,5);
-INSERT INTO VALUES(8,1);
+INSERT INTO tb_FO VALUES(1,2);
+INSERT INTO tb_FO VALUES(2,2);
+INSERT INTO tb_FO VALUES(3,4);
+INSERT INTO tb_FO VALUES(4,6);
+INSERT INTO tb_FO VALUES(5,3);
+INSERT INTO tb_FO VALUES(6,4);
+INSERT INTO tb_FO VALUES(7,5);
+INSERT INTO tb_FO VALUES(8,1);
 --食物图片表
-INSERT INTO VALUES(1,‪D:\table\b.jpg,jpg);
-INSERT INTO VALUES(2,‪D:\table\f.jpg,jpg);
-INSERT INTO VALUES(3,‪D:\table\a.jpeg,jpeg);
-INSERT INTO VALUES(4,‪D:\table\e.jpg,jpg);
-INSERT INTO VALUES(5,‪D:\table\c.jpg,jpg);
-INSERT INTO VALUES(6,‪D:\table\d.png,png);
+INSERT INTO tb_foodImg VALUES(1,'‪b.jpg','jpg');
+INSERT INTO tb_foodImg VALUES(2,'f.jpg','jpg');
+INSERT INTO tb_foodImg VALUES(3,'a.jpg','jpg');
+INSERT INTO tb_foodImg VALUES(4,'e.jpg','jpg');
+INSERT INTO tb_foodImg VALUES(5,'c.jpg','jpg');
+INSERT INTO tb_foodImg VALUES(6,'d.jpg','jpg');
 
 --管理员表
 INSERT INTO tb_admi VALUES(1,'郝康浩','12345');
