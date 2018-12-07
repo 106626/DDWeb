@@ -56,8 +56,8 @@
 	                                <div class="menu">
 	                                    <ul>
 		                                    <li><a href="/Susses/index.jsp">主页</a></li>
-	                                        <li><a href="user_index.jsp">商家列表</a></li>
-	                                        <li><a href="user_order.jsp">我的订单</a></li>
+	                                        <li><a href="/Susses/views/user_index.jsp">商家列表</a></li>
+	                                        <li><a href="/Susses/views/user_order">我的订单</a></li>
 	                                        <li><a href="">加盟合作</a></li>         
 	                                    </ul>
 	                                </div>
@@ -91,7 +91,7 @@
 	                        <ul>
 	                            <li><a href="index.jsp">主页</a></li>
                                 <li><a href="user_index.jsp">商家列表</a></li>
-                                <li><a href="user_order.jsp">我的订单</a></li>
+                                <li><a href="user_order">我的订单</a></li>
                                 <li><a href="">加盟合作</a></li>         
 	                        </ul>
 	                    </nav>
@@ -317,50 +317,6 @@
 	                                </div>
 	                            </div>
 	                        </div>
-	                        <!--<div class="col-md-3 col-sm-6 col-xs-12">
-	                            <div class="single-footer">
-	                                <h3 class="single-footer-title">open hours</h3>
-	                                <div class="single-footer-details mt-30">
-	                                    <p>Lorem ipsum dolor sit amet,  tore latthi dimu consectetueiusmodm dost   </p>
-	                                    <div class="open-list">
-	                                        <ul>
-	                                            <li>Monday- Friday. . . . . . . . . . . . . <span>8 AM - 5PM</span></li>
-	                                            <li>Sunday. . . . . . . . . . . . . . . . . . . . . <span>12 AM - 5PM</span></li>
-	                                            <li>Saturday . . . . . . . . . . . . . . . . . . . . . . . . . . . <span>Close</span></li>
-	                                        </ul>
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>-->
-	                        <!--<div class="col-md-3 col-sm-6 col-xs-12">
-	                            <div class="single-footer instagram">
-	                                <h3 class="single-footer-title">instagram</h3>
-	                                <div class="single-footer-details mt-30">
-	                                   <ul>
-	                                       <li><a href="#"><img src="images/instagram/1.jpg" alt=""></a></li>
-	                                       <li><a href="#"><img src="images/instagram/2.jpg" alt=""></a></li>
-	                                       <li><a href="#"><img src="images/instagram/3.jpg" alt=""></a></li>
-	                                       <li><a href="#"><img src="images/instagram/4.jpg" alt=""></a></li>
-	                                       <li><a href="#"><img src="images/instagram/5.jpg" alt=""></a></li>
-	                                       <li><a href="#"><img src="images/instagram/6.jpg" alt=""></a></li>
-	                                   </ul>
-	                                </div>
-	                            </div>
-	                        </div>-->
-	                        <!--<div class="col-md-3 col-sm-6 col-xs-12">
-	                            <div class="single-footer newsletter">
-	                                <h3 class="single-footer-title">Newsletter</h3>
-	                                <div class="single-footer-details mt-30">
-	                                    <p>Lorem ipsum dolor sit amet,  tore latthi dimu consectetueiusmodm dost </p>
-	                                    <div class="newsletter-form">
-	                                        <form action="#">
-	                                            <input type="text" placeholder="Enter your email">
-	                                            <button type="submit">submit</button>
-	                                        </form>   
-	                                    </div>
-	                                </div>
-	                            </div>
-	                        </div>-->
 	                    </div>
 	                </div>   
 	            </div>

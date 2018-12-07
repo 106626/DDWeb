@@ -948,7 +948,7 @@ h3.single-footer-title {
     15.1 Breadcrubs css here
 -------------------------------*/
 .breadcrubs {
-  background: rgba(0, 0, 0, 0) url("/Vue/img/bg/breadcrubs.jpg") no-repeat scroll center center / cover ;
+  background: rgba(0, 0, 0, 0) url("/Susses/img/bg/breadcrubs.jpg") no-repeat scroll center center / cover ;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   padding: 100px 0;
   position: relative;
@@ -1561,7 +1561,7 @@ h2.counter {
   text-transform: capitalize;
 }
 .widget-categories a:before {
-  content: "";
+  content: "飪�";
   font-family: FontAwesome;
   margin-right: 12px;
 }
@@ -1845,7 +1845,7 @@ h2.counter {
             transform: rotateX(-90deg);
 }
 .menu ul li ul.dropdown_menu li.dropdown-mega:after {
-  content: "";
+  content: "飫�";
   font-family: FontAwesome;
   font-size: 18px;
   position: absolute;
@@ -2074,7 +2074,7 @@ h2.counter {
 }
 .accordion-active h4:before {
     color: #555;
-    content: "";
+    content: "飦�";
     font-family: FontAwesome;
     font-weight: 300;
     margin-left: 5px;
@@ -2084,7 +2084,7 @@ h2.counter {
 }
 .accordion-active h4.open:before {
     color: #e54c2a;
-    content: "";
+    content: "飦�";
 }
 .accordion-active h4:hover:before,.accordion-active h4.open {
     color: #e54c2a;

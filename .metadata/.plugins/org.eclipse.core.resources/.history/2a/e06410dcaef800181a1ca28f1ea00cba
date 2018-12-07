@@ -1,0 +1,29 @@
+package com.cx.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet(urlPatterns="/test/param")
+public class ParamAction extends HttpServlet{
+	
+		private static final long serialVersionUID = 2443671584233462363L;
+
+		protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//获取Url的参数.
+		//http://localhost:8888/SuccessManager/test/param?name=tom&age=23&gender=f
+		String name = req.getParameter("u_name");
+		
+		String password = req.getParameter("u_password");
+		
+		//需要将字符串转换成Integer类型
+		
+		System.out.println("姓名:"+name);
+		System.out.println("年龄:"+password);
+		System.out.println("hello!");
+	}
+}

@@ -1,0 +1,24 @@
+package com.cx.service.impl;
+
+import java.util.List;
+
+import com.cx.dao.IMerAddressDao;
+import com.cx.dao.impl.MerAddressDaoimpl;
+import com.cx.entity.MerAddress;
+import com.cx.service.IMerAddressService;
+
+public class MerAddressServiceimpl implements IMerAddressService{
+	IMerAddressDao dao= new MerAddressDaoimpl();
+	@Override
+	public List<MerAddress> findAll() {
+		// TODO 自动生成的方法存根
+		return dao.findAll();
+	}
+
+	@Override
+	public void delById(Integer id) {
+		// TODO 自动生成的方法存根
+		dao.delById(id);
+	}
+
+}

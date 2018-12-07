@@ -1,0 +1,92 @@
+package com.cx.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cx.dao.IFoodDao;
+import com.cx.entity.Food;
+import com.cx.util.support.IPreparedStatementCallBack;
+import com.cx.util.support.IResultSetCallBack;
+import com.cx.util.support.JdbcTemplate;
+
+public class FoodDaoimpl implements IFoodDao{
+	@SuppressWarnings("all")
+	@Override
+	public List<Food> findAll(String fName, Integer fT_id) {
+		// TODO 自动生成的方法存根
+		return (List<Food>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				String sql="select * from tb_food where 1=1";
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				if(null!=fName&&fName.trim().length()>0){
+					sql+="and f_name like '%"+fName+"%'";
+				}
+				
+				if(null!=fT_id){
+					sql+="and fT_id ="+fT_id;
+				}
+				return pst;
+			}
+		}, new IResultSetCallBack() {
+			
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				List<Food> list=new ArrayList<>();
+				while(rs.next()){
+					
+					Integer fId=rs.getInt("f_id");
+					
+					String fName=rs.getString("f_name");
+					
+					double fprice=Double.valueOf(rs.getString("f_price"));
+					
+					String img =rs.getString("f_imgID");
+					
+					Food food=new Food();
+					
+					food.setfId(fId);
+					
+					food.setfName(fName);
+					
+					food.setfPrice(fprice);
+					
+					food.setfImg(img);
+					
+					list.add(food);		
+				}						
+			return list;
+			}
+		});
+	}
+
+	@Override
+	public void delById(Integer id) {
+		// TODO 自动生成的方法存根
+		JdbcTemplate.execute(new IPreparedStatementCallBack() {
+			
+		@Override
+		public PreparedStatement executePst(Connection conn) throws SQLException {
+			// TODO 自动生成的方法存根
+			
+			String sql="delete from tb_food where f_id=?";
+			
+			PreparedStatement pst=conn.prepareStatement(sql);
+			
+			pst.setInt(1,id);
+			
+			return pst;
+		}
+	});
+}	
+	}
+

@@ -1,0 +1,186 @@
+package com.cx.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cx.dao.IUserDao;
+import com.cx.entity.User;
+import com.cx.util.support.IPreparedStatementCallBack;
+import com.cx.util.support.IResultSetCallBack;
+import com.cx.util.support.JdbcTemplate;
+
+public class UserDaoimpl implements IUserDao{
+
+	@Override
+	public void save(User user) {
+		// TODO 自动生成的方法存根
+		JdbcTemplate.execute(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				String sql="insert into tb_user values(?,?,?,?,?,?,?,?)";
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				//发送参数-注意类型
+				pst.setInt(1, user.getuId());
+				
+				pst.setString(2, user.getuPhone());
+				
+				pst.setString(3, user.getuName());
+				
+				pst.setString(4, user.getuPassword());
+				
+				pst.setString(5, String.valueOf(user.getSex()));
+				
+				pst.setInt(6, user.getUseraddress().getuAId());
+				
+				pst.setInt(7, user.getVip().getvId());
+				
+				pst.setInt(8, user.getImg().gethId());
+				
+				return null;
+			}
+		});
+	}
+
+	@Override
+	@SuppressWarnings("all")
+	public List<User> findAll() {
+		// TODO 自动生成的方法存根
+		return (List<User>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				String sql="select * from tb_user";
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				return pst;
+			}
+		}, new IResultSetCallBack() {
+			
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				List<User> list=new ArrayList<>();
+				
+				while(rs.next()){
+					Integer uId=rs.getInt("u_id");
+					
+					String uName=rs.getString("u_name");
+					
+					String uPhone=rs.getString("u_phone");
+					
+					char sex=rs.getString("u_sex").charAt(0);
+					
+					User user=new User();
+					
+					user.setuId(uId);
+					
+					user.setuName(uName);
+					
+					user.setuPhone(uPhone);
+					
+					user.setSex(sex);
+					
+					list.add(user);
+				}
+				
+				return list;
+			}
+		});
+	}
+
+	@Override
+	public void delById(Integer Id) {
+		// TODO 自动生成的方法存根
+		JdbcTemplate.execute(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				String sql="delete from tb_user where id=?";
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				pst.setInt(1, Id);
+				
+				return pst;
+			}
+		});
+	}
+
+	@Override
+	@SuppressWarnings("all")
+	public List<User> findAll(String uName, Integer uAId) {
+		// TODO 自动生成的方法存根
+		return (List<User>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				String  sql="select * from tb_user where 1=1";
+				
+				if(null!=uName&&uName.trim().length()>0){
+					sql+="and uName like '%"+uName+"%'";
+				}
+				
+				if(null!=uAId){
+					sql+="and uAId ="+uAId;
+				}
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				return pst;
+			}
+		}, new IResultSetCallBack() {
+			
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				while(rs.next()){
+					List<User> list = new ArrayList<>();
+					
+					while(rs.next()){
+						Integer uId=rs.getInt("u_id");
+						
+						String uName=rs.getString("u_name");
+						
+						String uPhone=rs.getString("u_phone");
+						
+						char sex=rs.getString("u_sex").charAt(0);
+						
+						User user=new User();
+						
+						user.setuId(uId);
+						
+						user.setuName(uName);
+						
+						user.setuPhone(uPhone);
+						
+						user.setSex(sex);
+						
+						list.add(user);
+						
+						list.add(user);
+					}			
+					
+					return list;
+				}
+				return null;
+			}
+		});
+	}
+
+}

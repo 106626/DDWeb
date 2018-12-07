@@ -16,13 +16,11 @@ public interface IUserDao {
 	
 	List<User> findAll();
 	
-	/*
-	 * 删除
-	 */
-	void delById(Integer Id);
-	
+
 	/*
 	 * uAId-地址（外键）
 	 */
-	List<User> findAll(String uName,Integer uAId);
+	List<User> findAll(String uName,String uPassword);
+	
+	void delById(Integer id);
 }

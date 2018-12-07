@@ -1,0 +1,26 @@
+package com.cx.service.impl;
+
+import java.util.List;
+
+import com.cx.dao.IOrderDao;
+import com.cx.dao.impl.OrderDaoimpl;
+import com.cx.entity.Order;
+import com.cx.entity.OrderInfo;
+import com.cx.service.IOrderService;
+
+public class OrderServiceimpl implements IOrderService{
+
+	IOrderDao dao=new OrderDaoimpl();
+	@Override
+	public List<OrderInfo> findAll(String fName, String mName, String uName) {
+		// TODO 自动生成的方法存根
+		return dao.findAll(fName, mName, uName);
+	}
+
+	@Override
+	public void delById(Integer ordId) {
+		// TODO 自动生成的方法存根
+		dao.delById(ordId);
+	}
+
+}

@@ -1,0 +1,50 @@
+package com.cx.dao;
+
+import java.util.List;
+
+import org.junit.Test;
+
+import com.cx.dao.impl.UserDaoimpl;
+import com.cx.entity.User;
+import com.cx.entity.UserAddress;
+
+
+public class TestUserDao {
+
+	IUserDao dao = new UserDaoimpl();
+	
+	@Test
+	public void testDelById(){
+		dao.delById(110);
+	}
+	
+	@Test
+	public void testSave(){
+		//模拟一个明星对象
+		User s = new User();
+		//设置初始值
+		s.setuId(8);
+		
+		s.setuName("ssss");
+		
+		s.setSex('F');
+		
+		UserAddress area = new UserAddress();
+		
+		area.setuAId(2);
+		
+		s.setUseraddress(area);
+
+		dao.save(s);
+	}
+	
+	@Test
+	public void testFindAll(){
+		List<User> list = dao.findAll(null, null);
+		
+		for (User user : list) {
+			System.out.println(user);
+		}
+	}
+	
+}

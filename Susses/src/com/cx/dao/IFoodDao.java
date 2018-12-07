@@ -6,9 +6,7 @@ import com.cx.entity.Food;
 
 public interface IFoodDao {
 	
-	List<Food> findAll();
+	List<Food> findAll(String fName,Integer fT_id);
 	
-	void save(Food food);
-	
-	void delById(Integer fId);
+	void delById(Integer id);
 }

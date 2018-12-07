@@ -1,0 +1,12 @@
+package com.cx.controller;
+
+import javax.servlet.annotation.WebServlet;
+
+import com.sun.net.httpserver.HttpServer;
+
+import sun.net.httpserver.HttpServerImpl;
+
+@WebServlet("/index")
+public class IndexAction extends HttpServer{
+
+}

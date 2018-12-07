@@ -1,0 +1,9 @@
+package com.cx.controller;
+
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+
+@WebServlet(urlPatterns="/del")
+public class DelAction extends HttpServlet{
+
+}
