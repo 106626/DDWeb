@@ -80,9 +80,6 @@ body {
 				</fieldset>
 
 			</form>
-
-
-
 		</div>
 	</div>
 
