@@ -1,0 +1,48 @@
+package com.cx.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.cx.entity.OrderInfo;
+import com.cx.entity.User;
+import com.cx.service.IAdmiService;
+import com.cx.service.IOrderService;
+import com.cx.service.IUserService;
+import com.cx.service.impl.AdmiServiceimpl;
+import com.cx.service.impl.OrderServiceimpl;
+import com.cx.service.impl.UserServiceimpl;
+
+@WebServlet("/views/04wwysh")
+public class AdmiUSerAction extends HttpServlet{
+
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private IUserService userservice=new UserServiceimpl();
+	
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//需要将area_id的String类型转换成Integer类型.
+		//注意:如果area_id为null,那么是不能够转换的.
+		String name=req.getParameter("fName");
+		
+		//获取所有的明星信息
+		List<User> userList = userservice.findAll();
+		
+		//放入到session作用域中
+		req.getSession().setAttribute("userList", userList);
+		
+		//转发到jsp页面
+		req.getRequestDispatcher("/views/04wwysh.jsp").forward(req, resp);
+	}
+}

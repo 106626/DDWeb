@@ -1,0 +1,7 @@
+package com.cx.service.impl;
+
+import com.cx.service.IMerAddressService;
+
+public class MerAddressServiceimpl implements IMerAddressService{
+
+}

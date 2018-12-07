@@ -1,0 +1,55 @@
+package com.cx.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.cx.dao.impl.OrderDaoimpl;
+import com.cx.entity.FO;
+import com.cx.entity.Order;
+import com.cx.entity.User;
+import com.cx.service.IOrderService;
+import com.cx.service.IUserService;
+import com.cx.service.impl.OrderServiceimpl;
+import com.cx.service.impl.UserServiceimpl;
+
+@WebServlet("/index")
+public class IndexAction extends HttpServlet{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1435440518772299379L;
+	
+	private IOrderService orderservice=new OrderServiceimpl();
+	
+	private IUserService userservise=new UserServiceimpl();
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO 自动生成的方法存根
+		String ord_id = req.getParameter("fo_ord_id");
+		
+		//需要将area_id的String类型转换成Integer类型.
+		//注意:如果area_id为null,那么是不能够转换的.
+		String food_name=req.getParameter("f_id");
+		
+		String user_name=req.getParameter("u_name");
+				
+		String mer_name=req.getParameter("m_name");
+		//获取所有的明星信息
+		List<Order> ordList = orderservice.findAll(food_name, mer_name,user_name);
+		
+		//放入到session作用域中
+		req.getSession().setAttribute("areaList", areaList);
+		req.getSession().setAttribute("starList", starList);
+		
+		//转发到jsp页面
+		req.getRequestDispatcher("/views/list.jsp").forward(req, resp);
+	}
+}

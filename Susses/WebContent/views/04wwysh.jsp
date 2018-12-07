@@ -1,162 +1,141 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!doctype html>
+<html class="no-js" lang="">
 
-
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title></title>
-    <link rel="stylesheet" href="/Susses/frame/layui/css/layui.css">
-    <link rel="stylesheet" href="/Susses/frame/static/css/style.css">
-    <link rel="icon" href="/Susses/frame/static/image/code.png">
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<title>用户管理</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Place favicon.ico in the root directory -->
+<link href="images/apple-touch-icon.png" type="images/x-icon"
+	rel="shortcut icon">
+<!-- All css files are included here. -->
+<link rel="stylesheet" href="/Susses/css/user_index/bootstrap.min.css">
+<link rel="stylesheet" href="/Susses/css/user_index/core.css">
+<link rel="stylesheet" href="/Susses/css/user_index/style.css">
+<link rel="stylesheet" href="/Susses/css/user_index/responsive.css">
+<link rel="stylesheet" type="text/css"
+	href="/Susses/plugins/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+<!-- customizer style css -->
+<link rel="stylesheet"
+	href="/Susses/css/user_index/style-customizer.css">
+<link href="#" data-style="styles" rel="stylesheet">
+<!-- Modernizr JS -->
+<script src="/Susses/js/user_index/vendor/modernizr-2.8.3.min.js"></script>
 </head>
-<body class="body">
 
-<div class="layui-row layui-col-space10">
-    <div class="layui-col-xs12 layui-col-sm2 layui-col-md2">
-        <!-- tree -->
-        <ul id="tree" class="tree-table-tree-box"></ul>
-    </div>
-    <div class="layui-col-xs12 layui-col-sm10 layui-col-md10">
-        <!-- 工具集 -->
-        <div class="my-btn-box">
-            <span class="fl">
-                <a class="layui-btn layui-btn-danger" id="btn-delete-all">批量删除</a>
-                <a class="layui-btn btn-default btn-add" id="btn-add-article">发布文章</a>
-            </span>
-            <span class="fr">
-                <span class="layui-form-label">搜索条件：</span>
-                <div class="layui-input-inline">
-                    <input type="text" autocomplete="off" placeholder="请输入搜索条件" class="layui-input">
-                </div>
-                <button class="layui-btn mgl-20">查询</button>
-            </span>
-        </div>
-        <!-- table -->
-        <div id="dateTable"></div>
-    </div>
-</div>
+<body>
+	<!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
+	<!-- Pre Loader
+	============================================ -->
+	<div class="preloader">
+		<div class="loading-center">
+			<div class="loading-center-absolute">
+				<div class="object object_one"></div>
+				<div class="object object_two"></div>
+				<div class="object object_three"></div>
+			</div>
+		</div>
+	</div>
+	<!-- Body main wrapper start -->
 
-<script type="text/javascript" src="/Susses/frame/layui/layui.js"></script>
-<script type="text/javascript" src="/Susses/js/index.js"></script>
-<script type="text/javascript">
-
-    // layui方法
-    layui.use(['tree', 'table', 'vip_table', 'layer'], function () {
-
-        // 操作对象
-        var table = layui.table
-                , vipTable = layui.vip_table
-                , layer = layui.layer
-                , $ = layui.jquery;
-
-        // 表格渲染
-        var tableIns = table.render({
-        	
-        	
-        	
-        	parseData: function(res){ //res 即为原始返回的数据
-                     res.data.code=0
-                        return {
-                          "code": res.data.code, //解析接口状态
-                          "msg": res.data.msg, //解析提示文本
-                          "count": res.data.total, //解析数据长度
-                          "data": res.data.authors //解析数据列表
-                        };
-                      },
-        	
-        	
-        	
-        	
-            elem: '#dateTable'                  //指定原始表格元素选择器（推荐id选择器）
-            , height: vipTable.getFullHeight()    //容器高度
-            , cols: [[                  //标题栏
-                {checkbox: true, sort: true, fixed: true, space: true}
-                , {field: 'id', title: 'ID', width: 80}
-                , {field: 'account', title: '用户名', width: 120}
-                , {field: 'auth_group_name', title: '权限组', width: 120}
-                , {field: 'last_login_time', title: '最后登录时间', width: 180}
-                , {field: 'last_login_ip', title: '最后登录IP', width: 180}
-                , {field: 'create_time', title: '创建时间', width: 180}
-                , {field: 'status', title: '状态', width: 70}
-                , {fixed: 'right', title: '操作', width: 150, align: 'center', toolbar: '#barOption'} //这里的toolbar值是模板元素的选择器
-            ]]
-            , id: 'dataCheck'
-//          , url: './../json/data_table.json'
-			, url: '/Susses/json/data_table.json'
-            , method: 'get'
-            , page: true
-            , limits: [30, 60, 90, 150, 300]
-            , limit: 30 //默认采用30
-            , loading: false
-            , done: function (res, curr, count) {
-                //如果是异步请求数据方式，res即为你接口返回的信息。
-                //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
-                console.log(res);
-
-                //得到当前页码
-                console.log(curr);
-
-                //得到数据总量
-                console.log(count);
-            }
-        });
-
-        // 获取选中行
-        table.on('checkbox(dataCheck)', function (obj) {
-            console.log(obj.checked); //当前是否选中状态
-            console.log(obj.data); //选中行的相关数据
-            console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
-        });
-
-        // 树        更多操作请查看 http://www.layui.com/demo/tree.html
-        layui.tree({
-            elem: '#tree' //传入元素选择器
-            , click: function (item) { //点击节点回调
-                layer.msg('当前节名称：' + item.name);
-                // 加载中...
-                var loadIndex = layer.load(2, {shade: false});
-                // 关闭加载
-                layer.close(loadIndex);
-                // 刷新表格
-                tableIns.reload();
-            }
-            , nodes: [{ //节点
-                name: '父节点1'
-                , children: [{
-                    name: '子节点11'
-                    , children: [{
-                        name: '子节点111'
-                    }]
-                }, {
-                    name: '子节点12'
-                }]
-            }, {
-                name: '父节点2'
-                , children: [{
-                    name: '子节点21'
-                    , children: [{
-                        name: '子节点211纷纷就爱我就覅偶而安静佛尔'
-                    }]
-                }]
-            }]
-        });
-
-        // you code ...
+	<!-- Mobile menu start -->
+	<!-- Mobile menu end -->
+	</div>
+	<!--Header section end-->
+	<!--Breadcrubs start-->
+	<!--Breadcrubs end-->
 
 
-    });
-</script>
-<!-- 表格操作按钮集 -->
-<script type="text/html" id="barOption">
-    <a class="layui-btn layui-btn-mini" lay-event="detail">查看</a>
-    <a class="layui-btn layui-btn-mini layui-btn-normal" lay-event="edit">编辑</a>
-    <a class="layui-btn layui-btn-mini layui-btn-danger" lay-event="del">删除</a>
-</script>
+	<!--Contact bottom section-->
+	<div class="contact-bottom-section ptb-100">
+		<div class="bg-img"></div>
+		<div class="container-fluid">
+			<div class="row">
+			<div class="search-inside" style="display: none;">
+								<a href="#" class="search-close"><i class="mdi mdi-close"></i></a>
+								<div class="search-overlay"></div>
+								<div class="searchbar-inner">
+									<div class="search">
+										<form action="/Susses/views/user_order">
+											<input type="search" placeholder="搜索订单" name="mName">
+											<button type="submit">
+												<i class="mdi mdi-magnify"></i>
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+				<div class="col-md-6 col-sm-12 col-xs-12 contact-form-div">
+					<div class="contact-form">
+						<div class="contact-form-title">
+							<h2>My Order</h2>
+						</div>
+						<div class="table-responsive" style="width: 1180px;">
+							<table class="table">
+								<caption>用户</caption>
+								<thead>
+									<tr>
+										<th>用户名称</th>
+										<th>用户密码</th>
+										<th>用户手机</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${userList}" var="user">
+										<tr>
+											<td>${user.uName}</td>
+											<td>${user.uPassword}</td>
+											<td>${user.uPhone}</td>
+											<td><a href="/Susses/del?id=${user.uId}"
+												class="text-danger glyphicon glyphicon-trash"></a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Contact bottom section end-->
+
+	</div>
+	<!--contact us pages end-->
+
+	<!--contact us pages start-->
+
+	<!--Footer section start-->
+
+	<!--Footer section end-->
+	</div>
+	<script src="js/map.js"></script>
+	--->
+
+
+	<!-- All js plugins included in this file. -->
+	<script src="/Susses/js/user_index/vendor/jquery-1.12.0.min.js"></script>
+	<script src="/Susses/js/user_index/bootstrap.min.js"></script>
+	<script src="/Susses/js/user_index/jquery.nivo.slider.pack.js"></script>
+	<script src="/Susses/js/user_index/isotope.pkgd.min.js"></script>
+	<script src="/Susses/js/user_index/ajax-mail.js"></script>
+	<script src="/Susses/js/user_index/jquery.magnific-popup.js"></script>
+	<script src="/Susses/js/user_index/jquery.counterup.min.js"></script>
+	<script src="/Susses/js/user_index/animated-headlines.js"></script>
+	<script src="/Susses/js/user_index/waypoints.min.js"></script>
+	<script src="/Susses/js/user_index/jquery.collapse.js"></script>
+	<script src="/Susses/js/user_index/style-customizer.js"></script>
+	<script src="/Susses/js/user_index/plugins.js"></script>
+	<script src="/Susses/js/user_index/main.js"></script>
+
 </body>
+
 </html>

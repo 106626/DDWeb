@@ -1,0 +1,20 @@
+package com.cx.dao;
+
+import java.util.List;
+
+import org.junit.Test;
+
+import com.cx.dao.impl.OrderDaoimpl;
+import com.cx.entity.Order;
+
+public class TestOrder {
+	IOrderDao dao=new OrderDaoimpl();
+	
+	@Test
+	public void TestfindAll(){
+		List<Order> list=dao.findAll(null, null, "1");
+		for(Order s:list){
+			System.out.println(s);
+		}
+	}
+}

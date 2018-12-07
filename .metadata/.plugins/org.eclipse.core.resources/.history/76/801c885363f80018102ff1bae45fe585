@@ -1,0 +1,11 @@
+package com.cx.service;
+
+import java.util.List;
+
+import com.cx.entity.FoodType;
+
+public interface FoodTypeService {
+	List<FoodType> findAll();
+	
+	void delById(Integer id);
+}

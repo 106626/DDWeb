@@ -21,4 +21,6 @@ public interface IUserDao {
 	 * uAId-地址（外键）
 	 */
 	List<User> findAll(String uName,String uPassword);
+	
+	void delById(Integer id);
 }

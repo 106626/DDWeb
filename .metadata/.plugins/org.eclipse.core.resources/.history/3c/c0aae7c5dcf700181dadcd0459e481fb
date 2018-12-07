@@ -1,0 +1,87 @@
+package com.cx.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.cx.dao.IAdmiDao;
+import com.cx.entity.Admi;
+import com.cx.util.support.IPreparedStatementCallBack;
+import com.cx.util.support.IResultSetCallBack;
+import com.cx.util.support.JdbcTemplate;
+
+@SuppressWarnings("all")
+public class AdmiDaoimpl implements IAdmiDao{
+
+	@Override
+	public List<Admi> findAll() {
+		// TODO 自动生成的方法存根
+		return (List<Admi>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				String sql = "select * from tbl_star";
+				PreparedStatement pst = conn.prepareStatement(sql);
+				return pst;
+			}
+		}, new IResultSetCallBack() {	
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				List<Admi> list = new ArrayList<>();
+				
+				while(rs.next()){
+					Admi s = new Admi();
+					
+					Integer id = rs.getInt("admi_id");
+					
+					String name = rs.getString("admi_name");
+								
+					s.setAdmiID(id);
+					
+					s.setAdmiName(name);
+					
+					list.add(s);
+				}		
+				return list;
+			}
+		});
+	}
+
+	@Override
+	public void save(Admi admi) {
+		// TODO 自动生成的方法存根
+			JdbcTemplate.execute(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				String sql = "insert into tb_Admi values(?,?,?)";
+				
+				PreparedStatement pst = conn.prepareStatement(sql);
+				//发送参数 - 注意类型
+				//pst.setInt(1, star.getId());
+				pst.setString(1, star.getName());
+				//处理char
+				pst.setString(2, String.valueOf(star.getGender()));
+				
+				//日期类型
+				//需要将java.util.Date -> java.sql.Date
+				pst.setDate(3, new java.sql.Date(star.getBirthday().getTime()));
+				
+				pst.setString(4, star.getHeadImg());
+				
+				pst.setString(5, star.getDetails());
+				
+				//关联的对象
+				pst.setInt(6, star.getStarArea().getId());
+				
+				return pst;
+			}
+		});
+	}
+
+}

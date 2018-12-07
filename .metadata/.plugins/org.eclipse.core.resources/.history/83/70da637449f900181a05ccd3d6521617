@@ -1,0 +1,131 @@
+package com.cx.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import com.cx.dao.IOrderDao;
+import com.cx.entity.Order;
+import com.cx.entity.OrderInfo;
+import com.cx.entity.User;
+import com.cx.util.support.IPreparedStatementCallBack;
+import com.cx.util.support.IResultSetCallBack;
+import com.cx.util.support.JdbcTemplate;
+
+public class OrderDaoimpl implements IOrderDao{
+	
+	@SuppressWarnings("all")
+	@Override
+	public List<OrderInfo> findAll(String fName, String mName, String uName) {
+		// TODO 自动生成的方法存根
+		return (List<OrderInfo>) JdbcTemplate.exetuteQuery(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				String sql="SELECT o.ord_date ,u.U_NAME ,M.m_name,f.f_name,f.f_price"
+							+" from TB_USER U"
+							+" join TB_ORDER O ON ORD_USER=U_ID"
+							+" join TB_FO FO ON ord_id=fo_ord_id"
+							+" join TB_FOOD F ON fo_f_id=f_id"
+							+" join TB_MER M ON ord_mer=m_id"
+							+" where 1=1";
+				
+				//FoodName-食物名模糊查询
+				if(null!=fName && fName.trim().length()>0){
+					sql+=" and f_name like '%"+fName+"%'";
+				}
+				
+				if(null!=mName &&mName.trim().length()>0){
+					sql+=" and m_name like '%"+mName+"%'";
+				}
+				
+				if(null!=uName && uName.trim().length()>0){
+					sql+=" and u_name ="+uName;
+				}
+				
+				System.out.println(sql);
+				
+				PreparedStatement pst=conn.prepareStatement(sql);
+				
+				return pst;
+			}
+		}, new IResultSetCallBack() {
+			
+			@Override
+			public Object executeRscb(ResultSet rs) throws SQLException {
+				// TODO 自动生成的方法存根
+				List<OrderInfo> list=new ArrayList<>();
+				
+				while(rs.next()){
+					OrderInfo s = new OrderInfo();
+					
+//					Integer id=rs.getInt("ord_id");
+	
+					Date time=rs.getDate("ord_date");
+					
+					String uName=rs.getString("u_name");
+					
+					String mName=rs.getString("m_name");
+					
+					String fName=rs.getString("f_name");
+					
+					double price=rs.getDouble("f_price");
+					
+//					s.setId(id);
+					
+					s.setDate(time);
+					
+					s.setuName(uName);
+					
+					s.setPrice(price);
+					
+					s.setmName(mName);
+					
+					s.setfName(fName);
+					
+					list.add(s);
+					
+				}
+				return list;
+			}
+		});
+	}
+
+	@Override
+	public void delById(Integer ordId) {
+		// TODO 自动生成的方法存根
+		JdbcTemplate.execute(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				String sql1="delete from tb_FO where fo_ord_id=?";
+				
+				PreparedStatement pst1=conn.prepareStatement(sql1);
+				
+				pst1.setInt(1, ordId);
+				
+				return pst1;
+			}
+		});
+			JdbcTemplate.execute(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				
+				String sql2="delete from tb_order where ord_Id=?";
+				
+				PreparedStatement pst2=conn.prepareStatement(sql2);
+				
+				pst2.setInt(1, ordId);
+				
+				return pst2;
+	}
+			});
+}}

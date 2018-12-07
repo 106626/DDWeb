@@ -154,4 +154,23 @@ public class UserDaoimpl implements IUserDao{
 		});
 	}
 
+	@Override
+	public void delById(Integer id) {
+		// TODO 自动生成的方法存根
+		JdbcTemplate.execute(new IPreparedStatementCallBack() {
+			
+			@Override
+			public PreparedStatement executePst(Connection conn) throws SQLException {
+				// TODO 自动生成的方法存根
+				String sql1="delete from tb_FO where fo_ord_id=?";
+				
+				PreparedStatement pst1=conn.prepareStatement(sql1);
+				
+				pst1.setInt(1, id);
+				
+				return pst1;
+			}
+		});
+	}
+
 }

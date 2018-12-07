@@ -1,0 +1,12 @@
+package com.cx.dao;
+
+import java.util.List;
+
+import com.cx.entity.Order;
+
+public interface IOrderDao {
+	
+	List<Order> findAll(String fName,String mName,String uName);
+	
+	void delById(Integer ordId);
+}

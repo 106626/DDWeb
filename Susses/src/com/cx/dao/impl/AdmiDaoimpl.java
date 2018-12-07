@@ -40,10 +40,14 @@ public class AdmiDaoimpl implements IAdmiDao{
 					Integer id = rs.getInt("admi_id");
 					
 					String name = rs.getString("admi_name");
+					
+					String password=rs.getString("admi_password");
 								
 					s.setAdmiID(id);
 					
 					s.setAdmiName(name);
+					
+					s.setAdmiPassword(password);
 					
 					list.add(s);
 				}		

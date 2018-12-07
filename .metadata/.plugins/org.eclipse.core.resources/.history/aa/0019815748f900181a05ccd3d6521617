@@ -1,0 +1,62 @@
+package com.cx.entity;
+
+import java.util.Date;
+
+public class OrderInfo {
+	private Date date;
+	
+	private String uName;
+	
+	private String mName;
+	
+	private String fName;
+	
+	private double price;
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public String getuName() {
+		return uName;
+	}
+
+	public void setuName(String uName) {
+		this.uName = uName;
+	}
+
+	public String getmName() {
+		return mName;
+	}
+
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
+
+	public String getfName() {
+		return fName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "OrderInfo [date=" + date + ", uName=" + uName + ", mName=" + mName + ", fName=" + fName + ", price="
+				+ price + "]";
+	}
+	
+}

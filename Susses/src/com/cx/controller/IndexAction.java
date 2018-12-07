@@ -38,7 +38,7 @@ public class IndexAction extends HttpServlet{
 		String user_name=req.getParameter("uName");
 				
 		String mer_name=req.getParameter("mName");
-		//获取所有的明星信息
+
 		List<OrderInfo> ordList = orderservice.findAll(food_name, mer_name,user_name);
 		
 		//放入到session作用域中
